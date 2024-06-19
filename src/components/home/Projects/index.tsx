@@ -1,4 +1,4 @@
-import PadCard from "@/components/PadCard";
+import PadCard from "@/components/padCard";
 import React from "react";
 
 const Projects = () => {

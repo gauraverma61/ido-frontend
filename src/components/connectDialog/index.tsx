@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Dialog,
@@ -12,10 +13,31 @@ import Metamask from "../../../public/images/MetaMask_Fox.svg.png";
 import WalletConnect from "../../../public/images/walletConnect.webp";
 import Coinbase from "../../../public/images/coinbaseWallet.webp";
 import Trustwallet from "../../../public/images/trustwallet.webp";
+import { useConnect } from "wagmi";
+import {
+  injected,
+  metaMask,
+  walletConnect,
+  coinbaseWallet,
+} from "wagmi/connectors";
+import { useAccountEffect } from "wagmi";
 
 const ConnectDialog = () => {
+  const { connect } = useConnect();
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  useAccountEffect({
+    onConnect(data) {
+      console.log("Connected!", data);
+      setIsDialogOpen(false);
+    },
+    onDisconnect() {
+      console.log("Disconnected!");
+    },
+  });
+  console.log("isDialogOpen", isDialogOpen);
+  
   return (
-    <Dialog>
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
         <Button className=" hidden lg:block bg-violet-1 font-semibold text-base text-white hover:bg-violet-2 ">
           Connect
@@ -27,7 +49,10 @@ const ConnectDialog = () => {
             Connect Wallet
           </DialogTitle>
           <div className=" grid grid-cols-1 md:grid-cols-2 gap-4 my-10 max-w-[90%] mx-auto">
-            <div className=" flex flex-col gap-2 items-center justify-between bg-dark-1 py-4 rounded-xl border border-violet-4 cursor-pointer">
+            <div
+              onClick={() => connect({ connector: metaMask() })}
+              className=" flex flex-col gap-2 items-center justify-between bg-dark-1 py-4 rounded-xl border border-violet-4 cursor-pointer"
+            >
               <Image
                 className="h-[60px] object-contain"
                 src={Metamask}
@@ -36,7 +61,10 @@ const ConnectDialog = () => {
               />
               <span className=" text-white">Metamask</span>
             </div>
-            <div className=" flex flex-col gap-2 items-center justify-between bg-dark-1 py-4 rounded-xl border border-violet-4 cursor-pointer">
+            <div
+              // onClick={() => connect({ connector: walletConnect() })}
+              className=" flex flex-col gap-2 items-center justify-between bg-dark-1 py-4 rounded-xl border border-violet-4 cursor-pointer"
+            >
               <Image
                 className="h-[50px] object-contain"
                 src={WalletConnect}
@@ -46,7 +74,10 @@ const ConnectDialog = () => {
 
               <span className=" text-white">Walletconnect</span>
             </div>
-            <div className=" flex flex-col gap-2 items-center justify-between bg-dark-1 py-4 rounded-xl border border-violet-4 cursor-pointer">
+            <div
+              onClick={() => connect({ connector: coinbaseWallet() })}
+              className=" flex flex-col gap-2 items-center justify-between bg-dark-1 py-4 rounded-xl border border-violet-4 cursor-pointer"
+            >
               <Image
                 className="h-[50px] object-contain"
                 src={Coinbase}

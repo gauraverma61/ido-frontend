@@ -14,8 +14,6 @@ const PadCard = (props: Iprops) => {
     } else return 0;
   }, [isMountedValue]);
 
-  console.log("isMountedValue", isMountedValue);
-
   return (
     <div className=" border border-violet-1 rounded-xl overflow-hidden">
       <div className=" w-full h-[150px] bg-gray-400 relative border-b border-violet-1 ">

@@ -1,8 +1,11 @@
+"use client";
 import React from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import ConnectDialog from "../connectDialog";
+import useAuth from "@/hooks/useAuth";
+import { trimAddress } from "@/lib/utils";
 
 export const menuItems = [
   { title: "Create", link: "/create" },
@@ -12,6 +15,9 @@ export const menuItems = [
 ];
 
 const Header = () => {
+  const { chainId, account, chains, disconnect } = useAuth();
+  console.log("Account: ", chainId, account, chains);
+
   return (
     <div className=" h-[60px] md:h-[70px] bg-dark-1 flex items-center justify-between px-6 md:px-10 lg:px-24">
       <Menu className=" lg:hidden text-white" />
@@ -34,8 +40,13 @@ const Header = () => {
         </nav>
       </div>
       <div className="lg:hidden w-6"></div>
-      
-      <ConnectDialog/>
+      {account ? (
+        <div onClick={() => disconnect()} className=" text-white font-semibold">
+          {trimAddress(account)}
+        </div>
+      ) : (
+        <ConnectDialog />
+      )}
     </div>
   );
 };
