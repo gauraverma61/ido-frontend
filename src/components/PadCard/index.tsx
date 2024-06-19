@@ -1,12 +1,21 @@
 "use client";
 import React, { useMemo } from "react";
+import { useIsMounted } from "usehooks-ts";
 
 interface Iprops {}
 
 const PadCard = (props: Iprops) => {
+  const isMounted = useIsMounted();
+  const isMountedValue = isMounted();
+
   const randomPercentage = useMemo(() => {
-    return Math.random() * 100; // Generates a random percentage between 0 and 100
-  }, []);
+    if (isMountedValue) {
+      return Math.random() * 100; // Generates a random percentage between 0 and 100
+    } else return 0;
+  }, [isMountedValue]);
+
+  console.log("isMountedValue", isMountedValue);
+
   return (
     <div className=" border border-violet-1 rounded-xl overflow-hidden">
       <div className=" w-full h-[150px] bg-gray-400 relative border-b border-violet-1 ">
@@ -23,7 +32,7 @@ const PadCard = (props: Iprops) => {
         </div>
         <div className="my-2">
           <div className=" mb-1.5 text-white">
-            Progress ({randomPercentage.toFixed(2)}%)
+            Progress ({randomPercentage?.toFixed(2)}%)
           </div>
           <div className=" w-full border border-violet-1 h-3 rounded-sm overflow-hidden mb-1">
             <div
@@ -36,7 +45,6 @@ const PadCard = (props: Iprops) => {
             <div>100 BNB</div>
           </div>
         </div>
-        <div className="my-2">1</div>
       </div>
     </div>
   );
