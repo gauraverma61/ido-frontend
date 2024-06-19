@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Menu } from "lucide-react";
+import ConnectDialog from "../connectDialog";
 
 export const menuItems = [
   { title: "Create", link: "/create" },
@@ -33,9 +34,8 @@ const Header = () => {
         </nav>
       </div>
       <div className="lg:hidden w-6"></div>
-      <Button className=" hidden lg:block bg-violet-1 font-semibold text-base text-white hover:bg-violet-2 ">
-        Connect
-      </Button>
+      
+      <ConnectDialog/>
     </div>
   );
 };
