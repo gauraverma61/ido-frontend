@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import EtherProvider from "./wagmi";
+import Web3Provider from "./wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
@@ -8,7 +8,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <EtherProvider>{children}</EtherProvider>
+        <Web3Provider>{children}</Web3Provider>
       </QueryClientProvider>
     </>
   );

@@ -19,7 +19,7 @@ export default function RootLayout({
       <body className="">
         <Providers>
           <Header />
-          <div>{children}</div>
+          <div className="bg-dark-2 min-h-screen">{children}</div>
           <Footer />
         </Providers>
       </body>

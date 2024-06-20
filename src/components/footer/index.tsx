@@ -22,7 +22,7 @@ const Footer = () => {
               in few seconds.
             </p>
           </div>
-          <div className=" text-white flex items-center justify-between gap-10">
+          <div className=" text-white flex flex-col md:flex-row items-center justify-between gap-10">
             <Twitter className="cursor-pointer" />
             <Facebook className="cursor-pointer" />
             <Instagram className="cursor-pointer" />

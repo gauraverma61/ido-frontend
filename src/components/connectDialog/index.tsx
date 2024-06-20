@@ -34,7 +34,6 @@ const ConnectDialog = () => {
       console.log("Disconnected!");
     },
   });
-  console.log("isDialogOpen", isDialogOpen);
   
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
