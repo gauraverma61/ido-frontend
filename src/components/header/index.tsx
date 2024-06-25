@@ -2,10 +2,11 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Menu } from "lucide-react";
+import { Menu, User } from "lucide-react";
 import ConnectDialog from "../connectDialog";
 import useAuth from "@/hooks/useAuth";
 import { trimAddress } from "@/lib/utils";
+import NetworkDialog from "../networkDialog";
 
 export const menuItems = [
   { title: "Create", link: "/create" },
@@ -40,13 +41,23 @@ const Header = () => {
         </nav>
       </div>
       <div className="lg:hidden w-6"></div>
+      <div className=" hidden lg:block">
       {account ? (
-        <div onClick={() => disconnect()} className=" text-white font-semibold">
-          {trimAddress(account)}
+        <div className=" flex items-center gap-3">
+          <NetworkDialog/>
+          <div className=" text-white font-semibold border border-white px-4 py-2 rounded">
+            {trimAddress(account)}
+          </div>
+          <Link href={"/me"}>
+            <span className=" aspect-square px-2 rounded-full center border-2 border-gray-300 ">
+              <User color="white" />
+            </span>
+          </Link>
         </div>
       ) : (
         <ConnectDialog />
       )}
+      </div>
     </div>
   );
 };
