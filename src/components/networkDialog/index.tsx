@@ -13,6 +13,7 @@ import { useAccountEffect } from "wagmi";
 import useAuth from "@/hooks/useAuth";
 import { ChevronDown } from "lucide-react";
 import networkIcon from "@/lib/networkIcon";
+import { useToast } from "../ui/use-toast";
 
 const NetworkDialog = () => {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
@@ -27,6 +28,7 @@ const NetworkDialog = () => {
   });
 
   const { chainId, switchChain, chains } = useAuth();
+  const { toast } = useToast();
   console.log(chains, "chains");
 
   return (
@@ -46,7 +48,19 @@ const NetworkDialog = () => {
             {chains.map((chain) => {
               return (
                 <div
-                  onClick={() => switchChain({ chainId: chain.id })}
+                  onClick={() =>
+                    switchChain(
+                      { chainId: chain.id },
+                      {
+                        onSuccess: () => setIsDialogOpen(false),
+                        onError: () =>
+                          toast({
+                            title: "Something went wrong",
+                            variant: "destructive",
+                          }),
+                      }
+                    )
+                  }
                   className=" w-full flex flex-col gap-2 items-center justify-between bg-dark-1 py-4 px-5 rounded-xl border border-violet-4 cursor-pointer"
                 >
                   <Image
