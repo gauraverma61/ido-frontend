@@ -8,6 +8,9 @@ import React from "react";
 import CSVUploader from "./CSVUploader";
 import { Textarea } from "@/components/ui/textarea";
 import { Upload } from "lucide-react";
+import networkIcon from "@/lib/networkIcon";
+import Image from "next/image";
+import useAuth from "@/hooks/useAuth";
 
 const Multisender = () => {
   const [address, setAddress] = React.useState("");
@@ -16,6 +19,7 @@ const Multisender = () => {
   const [type, setType] = React.useState<"upload" | "manual">("upload");
 
   const { tokenInfo, loading, error } = useTokenInfo(address);
+  const { chainId } = useAuth();
   return (
     <div className=" container mx-auto px-6 md:px-10 py-12 md:py-20">
       <div className=" bg-dark-1 rounded-xl px-5 md:px-10 py-8">
@@ -32,12 +36,15 @@ const Multisender = () => {
             <h3 className=" text-white font-bold text-xl md:text-2xl mb-2 mt-6">
               Select Token
             </h3>
-            <Input
-              className=" bg-dark-3 outline-none border-violet-3 mb-4 text-white text-lg py-7 md:w-[80%] lg:w-[60%] placeholder:text-gray-400"
-              placeholder="token address ex. 0x33dD527301E6C67593c9Ae59663fdd886e39A79a"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-            />
+            <div className=" flex flex-col md:flex-row items-center gap-5 mb-4">
+              <Input
+                className=" bg-dark-3 outline-none border-violet-3 text-white text-lg py-7 md:w-[80%] lg:w-[60%] placeholder:text-gray-400"
+                placeholder="token address ex. 0x33dD527301E6C67593c9Ae59663fdd886e39A79a"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+              />
+              <Image src={networkIcon(chainId)} alt="" />
+            </div>
             {error && address && (
               <div className=" text-base font-medium text-red-500">{error}</div>
             )}

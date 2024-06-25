@@ -58,7 +58,7 @@ const CSVUploader = (props: Iprops) => {
                 <div className="w-fit mx-auto">
                   <Upload className=" text-white" />
                 </div>
-                <div className="font-semibold text-sm">
+                <div className="font-semibold text-sm text-white">
                   Drop CSV file here or click to upload
                 </div>
               </div>

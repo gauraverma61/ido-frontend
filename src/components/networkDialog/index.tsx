@@ -9,13 +9,10 @@ import {
 } from "@/components/ui/dialog";
 import Image from "next/image";
 import { useAccountEffect } from "wagmi";
-import polygon from "../../../public/icons/network/polygon.svg";
-import binance from "../../../public/icons/network/binance.svg";
-import ether from "../../../public/icons/network/ether.svg";
-import arbitrum from "../../../public/icons/network/arbitrum.svg";
-import fantom from "../../../public/icons/network/fantom.svg";
+
 import useAuth from "@/hooks/useAuth";
-import { SupportedNetworksArray, supportNetwork } from "@/constants/networks";
+import { ChevronDown } from "lucide-react";
+import networkIcon from "@/lib/networkIcon";
 
 const NetworkDialog = () => {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
@@ -29,30 +26,16 @@ const NetworkDialog = () => {
     },
   });
 
-  const networkIcon = (chainId: number) => {
-    // @ts-ignore
-    switch (supportNetwork[chainId]?.chainId) {
-      case 137:
-        return polygon;
-      case 56:
-        return binance;
-      case 1:
-        return ether;
-      case 42161:
-        return arbitrum;
-      case 250:
-        return fantom;
-      default:
-        return polygon;
-    }
-  };
-
-  const { chainId, switchChain } = useAuth();
+  const { chainId, switchChain, chains } = useAuth();
+  console.log(chains, "chains");
 
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
-        <Image src={networkIcon(chainId)} alt="" className=" cursor-pointer" />
+        <div className="flex items-center cursor-pointer">
+          <Image src={networkIcon(chainId)} alt="" />
+          <ChevronDown size={20} color="white" />
+        </div>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] bg-dark-1 border-violet-2 max-h-screen overflow-hidden ">
         <DialogHeader>
@@ -60,21 +43,19 @@ const NetworkDialog = () => {
             Change Network
           </DialogTitle>
           <div className=" grid grid-cols-1 md:grid-cols-2 gap-4 my-10 overflow-y-auto">
-            {SupportedNetworksArray.map((networkID) => {
+            {chains.map((chain) => {
               return (
                 <div
-                  onClick={() => switchChain({ chainId: networkID })}
+                  onClick={() => switchChain({ chainId: chain.id })}
                   className=" w-full flex flex-col gap-2 items-center justify-between bg-dark-1 py-4 px-5 rounded-xl border border-violet-4 cursor-pointer"
                 >
                   <Image
                     className="h-[50px] object-contain"
-                    src={networkIcon(networkID)}
+                    src={networkIcon(chain.id)}
                     alt=""
                     objectFit="contain"
                   />
-                  <div className=" text-white">
-                    {supportNetwork[networkID]?.name}
-                  </div>
+                  <div className=" text-white">{chain.name}</div>
                 </div>
               );
             })}

@@ -1,5 +1,14 @@
 import { http, createConfig } from "wagmi";
-import { mainnet, sepolia, polygonMumbai, bsc, arbitrum, polygon } from "wagmi/chains";
+import {
+  mainnet,
+  sepolia,
+  polygonMumbai,
+  bsc,
+  arbitrum,
+  polygon,
+  polygonAmoy,
+  fantom,
+} from "wagmi/chains";
 import {
   coinbaseWallet,
   metaMask,
@@ -8,7 +17,7 @@ import {
 } from "wagmi/connectors";
 
 export const config = createConfig({
-  chains: [mainnet, polygonMumbai, bsc, arbitrum, polygon],
+  chains: [mainnet, bsc, arbitrum, polygon, polygonAmoy, fantom],
   connectors: [
     metaMask(),
     coinbaseWallet(),
@@ -20,9 +29,10 @@ export const config = createConfig({
   ],
   transports: {
     [mainnet.id]: http(),
-    [polygonMumbai.id]: http(),
     [bsc.id]: http(),
     [arbitrum.id]: http(),
     [polygon.id]: http(),
+    [polygonAmoy.id]: http(),
+    [fantom.id]: http(),
   },
 });

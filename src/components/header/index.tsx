@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Menu, User } from "lucide-react";
+import { ChevronDown, Menu, User } from "lucide-react";
 import ConnectDialog from "../connectDialog";
 import useAuth from "@/hooks/useAuth";
 import { trimAddress } from "@/lib/utils";
@@ -16,8 +16,10 @@ export const menuItems = [
 ];
 
 const Header = () => {
-  const { chainId, account, chains, disconnect } = useAuth();
-  console.log("Account: ", chainId, account, chains);
+  const { chainId, account, chains, disconnect, useBalance } = useAuth();
+
+  const balanceResult = useBalance({ address: account });
+  console.log("balres", balanceResult.data?.value);
 
   return (
     <div className=" h-[60px] md:h-[70px] bg-dark-1 flex items-center justify-between px-6 md:px-10 lg:px-24">
@@ -42,21 +44,28 @@ const Header = () => {
       </div>
       <div className="lg:hidden w-6"></div>
       <div className=" hidden lg:block">
-      {account ? (
-        <div className=" flex items-center gap-3">
-          <NetworkDialog/>
-          <div className=" text-white font-semibold border border-white px-4 py-2 rounded">
-            {trimAddress(account)}
+        {account ? (
+          <div className=" flex items-center gap-5">
+            {balanceResult.data && (
+              <div className="text-white font-semibold text-base">
+                {Number(balanceResult.data?.value) /
+                  10 ** balanceResult?.data?.decimals}{" "}
+                {balanceResult.data.symbol}
+              </div>
+            )}
+              <NetworkDialog />
+            <div className=" text-white font-semibold border border-white px-4 py-2 rounded">
+              {trimAddress(account)}
+            </div>
+            <Link href={"/me"}>
+              <span className=" aspect-square px-2 rounded-full center border-2 border-gray-300 ">
+                <User color="white" />
+              </span>
+            </Link>
           </div>
-          <Link href={"/me"}>
-            <span className=" aspect-square px-2 rounded-full center border-2 border-gray-300 ">
-              <User color="white" />
-            </span>
-          </Link>
-        </div>
-      ) : (
-        <ConnectDialog />
-      )}
+        ) : (
+          <ConnectDialog />
+        )}
       </div>
     </div>
   );
