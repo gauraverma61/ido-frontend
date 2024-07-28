@@ -21,7 +21,7 @@ const useTokenInfo = (tokenAddress: string): UseTokenInfoResult => {
   const [tokenInfo, setTokenInfo] = React.useState<TokenInfo | null>(null);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string | null>(null);
-  const { account } = useAuth(); 
+  const { account, chainId } = useAuth(); 
 
   React.useEffect(() => {
     const fetchTokenInfo = async () => {
@@ -80,7 +80,7 @@ const useTokenInfo = (tokenAddress: string): UseTokenInfoResult => {
     };
 
     fetchTokenInfo();
-  }, [tokenAddress, account]);
+  }, [tokenAddress, account, chainId]);
   return { tokenInfo, loading, error };
 };
 

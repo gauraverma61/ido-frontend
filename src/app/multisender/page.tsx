@@ -48,7 +48,7 @@ const Multisender = () => {
             {error && address && (
               <div className=" text-base font-medium text-red-500">{error}</div>
             )}
-            {loading && (
+            {!tokenInfo && loading && (
               <div className=" bg-dark-2 flex justify-center items-center rounded-xl md:w-[80%] lg:w-[60%] p-10">
                 <LoaderCircle className=" animate-spin text-white" />
               </div>
@@ -92,7 +92,7 @@ const Multisender = () => {
               onClick={() => setStage(1)}
               size={"lg"}
               disabled={!tokenInfo}
-              className=" my-4 hidden lg:block bg-violet-1 font-semibold text-base text-white hover:bg-violet-2 "
+              className=" my-4 lg:block bg-violet-1 font-semibold text-base text-white hover:bg-violet-2 w-full md:w-auto"
             >
               Next
             </Button>
@@ -132,19 +132,19 @@ const Multisender = () => {
           </div>
         )}
         {stage == 1 && (
-          <div className=" flex justify-between">
+          <div className=" flex justify-between gap-2">
             <Button
               onClick={() => setStage(0)}
               size={"lg"}
               disabled={!tokenInfo}
-              className=" my-4 hidden lg:block bg-violet-1 font-semibold text-base text-white hover:bg-violet-2 "
+              className=" my-4 w-full md:w-auto lg:block bg-violet-1 font-semibold text-base text-white hover:bg-violet-2 "
             >
               Back
             </Button>
             <Button
               size={"lg"}
               disabled={!tokenInfo}
-              className=" my-4 hidden lg:block bg-violet-1 font-semibold text-base text-white hover:bg-violet-2 "
+              className=" my-4 w-full md:w-auto lg:block bg-violet-1 font-semibold text-base text-white hover:bg-violet-2 "
             >
               Confirm
             </Button>

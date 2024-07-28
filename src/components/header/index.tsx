@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ChevronDown, Menu, User } from "lucide-react";
 import ConnectDialog from "../connectDialog";
@@ -11,7 +10,7 @@ import NetworkDialog from "../networkDialog";
 export const menuItems = [
   { title: "Create", link: "/create" },
   { title: "List", link: "/list" },
-  { title: "Locker", link: "/locker" },
+  { title: "Locker", link: "/lock" },
   { title: "Multisender", link: "/multisender" },
 ];
 

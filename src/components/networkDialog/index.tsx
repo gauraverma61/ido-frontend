@@ -53,11 +53,16 @@ const NetworkDialog = () => {
                       { chainId: chain.id },
                       {
                         onSuccess: () => setIsDialogOpen(false),
-                        onError: () =>
+                        onError: (e) => {
+                          console.log(e.message);
+
                           toast({
-                            title: "Something went wrong",
+                            title: e.message
+                              ? e.message
+                              : "Something went wrong",
                             variant: "destructive",
-                          }),
+                          });
+                        },
                       }
                     )
                   }
