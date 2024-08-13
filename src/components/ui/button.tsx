@@ -9,6 +9,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
+        datePicker : "",
         default: "bg-white text-black font-semibold hover:bg-white/70",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",

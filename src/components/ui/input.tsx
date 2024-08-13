@@ -6,7 +6,7 @@ import { Divide } from "lucide-react";
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
-  variant?: "default" | "primary" | "secondary";
+  variant?: "default" | "primary" | "big";
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -14,32 +14,24 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const variantClasses = () => {
       switch (variant) {
         case "primary":
-          return "bg-dark-3 outline-none border-violet-3 text-white";
-        case "secondary":
-          return "border-secondary text-secondary";
-        case "default":
+          return "bg-dark-3 outline-none border-violet-3 text-white py-7 text-md";
+        case "big":
+          return "bg-dark-3 outline-none border-violet-3 text-white text-lg py-7 placeholder:text-gray-400";
         default:
-          return "border-input text-input";
+          return "bg-dark-3 outline-none border-violet-3 text-white py-6 text-md";
       }
     };
     return (
-      <div>
-        {label && (
-          <div className=" text-white text-xl font-semibold mb-1.5">
-            {label}
-          </div>
+      <input
+        type={type}
+        className={cn(
+          "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
+          variantClasses(),
+          className
         )}
-        <input
-          type={type}
-          className={cn(
-            "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
-            variantClasses(),
-            className
-          )}
-          ref={ref}
-          {...props}
-        />
-      </div>
+        ref={ref}
+        {...props}
+      />
     );
   }
 );

@@ -18,7 +18,6 @@ const Header = () => {
   const { chainId, account, chains, disconnect, useBalance } = useAuth();
 
   const balanceResult = useBalance({ address: account });
-  console.log("balres", balanceResult.data?.value);
 
   return (
     <div className=" h-[60px] md:h-[70px] bg-dark-1 flex items-center justify-between px-6 md:px-10 lg:px-24">

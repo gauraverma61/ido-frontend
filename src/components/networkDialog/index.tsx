@@ -45,9 +45,10 @@ const NetworkDialog = () => {
             Change Network
           </DialogTitle>
           <div className=" grid grid-cols-1 md:grid-cols-2 gap-4 my-10 overflow-y-auto">
-            {chains.map((chain) => {
+            {chains.map((chain, index) => {
               return (
                 <div
+                  key={index}
                   onClick={() =>
                     switchChain(
                       { chainId: chain.id },
